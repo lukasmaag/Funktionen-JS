@@ -44,3 +44,20 @@ let vorname = "Hans";
 let nachname = "Wurst";
 let vollerName = vorname + " " + nachname;
 console.log(vollerName);
+
+
+
+// Arrays
+
+const cars = ["Porsche", "Mercedes", "Toyota", "Nissan", "BMW"];
+cars.unshift("Audi");
+cars.push("Ford");
+
+cars.sort();
+
+console.log(cars.join(" | "));
+
+cars.forEach(car => {
+  console.log(car);
+});
+
