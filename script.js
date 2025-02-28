@@ -116,17 +116,54 @@ function convertToUpperCase(carName) {
 
 const result = convertToUpperCase("Porsche");
 
-// Objects
-const car = {
-  brand: "Toyota",
-  model: "Corolla",
-  year: 2020,
-};
 
-function printCarInfo(car) {
-  console.log(
-    `Das Auto ist ein ${car.brand} ${car.model} aus dem Jahr ${car.year}.`
-  );
+
+// Objects + array ausgabe + PS Vergleich
+const carArray = [
+  {
+    brand: "Toyota",
+    model: "Corolla",
+    year: 2020,
+    ps: 125
+  },
+  {
+    brand: "Toyota",
+    model: "Corolla",
+    year: 1990,
+    ps: 90
+  },
+  {
+    brand: "Porsche",
+    model: "911",
+    year: 2022,
+    ps: 450
+  },
+  {
+    brand: "VW",
+    model: "Polo",
+    year: 2019,
+    ps: 80
+  }
+];
+
+function printAllCarsInfo(cars) {
+  cars.forEach((car, index) => {
+    console.log(
+      `Auto ${index + 1}: Ein ${car.brand} ${car.model} aus dem Jahr ${
+        car.year
+      }.`
+    );
+  });
 }
 
-printCarInfo(car);
+printAllCarsInfo(carArray);
+
+function findPowerExtremes(cars) {
+  const strongest = cars.reduce((max, car) => car.ps > max.ps ? car : max);
+  const weakest = cars.reduce((min, car) => car.ps < min.ps ? car : min);
+  
+  console.log(`Das Auto mit den meisten PS ist: ${strongest.brand} ${strongest.model}, ${strongest.ps} PS`);
+  console.log(`Das Auto mit den wenigsten PS ist: ${weakest.brand} ${weakest.model}, ${weakest.ps} PS`);
+}
+
+findPowerExtremes(carArray);
