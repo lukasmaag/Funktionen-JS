@@ -181,3 +181,69 @@ function displayCarsInHTML(cars) {
 }
 
 displayCarsInHTML(carArray);
+
+
+function displayCarsInHTML(cars) {
+  const container = document.getElementById("car-container");
+  container.innerHTML = "";
+
+  cars.forEach((car) => {
+    const carDiv = document.createElement("div");
+    carDiv.className = "car-card";
+
+    const title = document.createElement("h3");
+    title.textContent = `${car.brand} ${car.model}`;
+
+    const details = document.createElement("p");
+    details.textContent = `Baujahr: ${car.year} | Leistung: ${car.ps} PS`;
+
+    const editButton = document.createElement("button");
+    editButton.textContent = "Bearbeiten";
+    editButton.onclick = () => editCar(car);
+
+    carDiv.appendChild(title);
+    carDiv.appendChild(details);
+    carDiv.appendChild(editButton);
+
+    container.appendChild(carDiv);
+  });
+}
+
+function editCar(car) {
+  const ps = prompt("Neue PS-Zahl eingeben:", car.ps);
+  if (ps !== null) {
+    car.ps = parseInt(ps);
+    displayCarsInHTML(carArray);
+    findPowerExtremes(carArray);
+  }
+}
+
+function fetchAndAddCars() {
+  fetch("https://munich-software-studios.de/car.json")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Netzwerk-Antwort war nicht ok");
+      }
+      return response.json();
+    })
+    .then((newCars) => {
+      carArray.push(...newCars);
+      displayCarsInHTML(carArray);
+      findPowerExtremes(carArray);
+    })
+    .catch((error) => {
+      console.error("Fehler beim Abrufen der Daten:", error);
+    });
+  console.log(newCars);
+}
+
+function addFetchButton() {
+  const container = document.getElementById("car-container");
+  const fetchButton = document.createElement("button");
+  fetchButton.textContent = "Weitere Autos laden";
+  fetchButton.style.marginBottom = "20px";
+  fetchButton.onclick = fetchAndAddCars;
+  container.insertBefore(fetchButton, container.firstChild);
+}
+
+addFetchButton();
